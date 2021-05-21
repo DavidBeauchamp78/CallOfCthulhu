@@ -21,7 +21,7 @@ const SignIn = () => {
 
     useEffect(() => {
         setError(errors);
-        if (auth.isAuthenticated) history.push("/Home")
+        if (auth.isAuthenticated) history.push("/Home");
     }, [auth, errors, history])
 
     return (

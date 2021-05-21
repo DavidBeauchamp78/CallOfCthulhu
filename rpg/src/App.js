@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { HashRouter, Route, Switch, Link, useHistory } from "react-router-dom";
+import { HashRouter, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./components/Home/Home.jsx";
 import Register from "./components/Register/Register.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
@@ -9,6 +9,7 @@ import store from "./store"
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+import Navigation from "./components/Navigation/Navigation.jsx";
 
 
 
@@ -29,23 +30,16 @@ const App = () => {
         history.push("/");
       }
     }
-  }, [history])
+  }, [history, auth])
 
   return (
     <Provider store={store}>
       <HashRouter>
-        {auth.isAuthenticated ?
-          <div>
-            <Link to="/Home">Home</Link>
-          </div>
-          :
-          <div>
-          </div>
-        }
+        <Navigation />
         <Switch>
           <Route exact path="/" component={SignIn} />
           <Route exact path="/Register" component={Register} />
-          <PrivateRoute exact path="/Home" auth={auth} component={Home} />
+          <PrivateRoute exact path="/Home" component={Home} />
         </Switch>
       </HashRouter>
     </Provider>
